@@ -1,6 +1,3 @@
-/**
- * Discriminated union of all typed events emitted by TokenHeal.
- */
 export type TokenHealEvent<T = Record<string, unknown>> =
   | TextEvent
   | ThinkingEvent
@@ -9,14 +6,9 @@ export type TokenHealEvent<T = Record<string, unknown>> =
   | CodeBlockEvent
   | DoneEvent;
 
-/**
- * Standard user-facing prose/text chunk.
- */
 export interface TextEvent {
   type: 'text';
-  /** The incremental delta received in this chunk */
   delta: string;
-  /** The full accumulated user-facing text so far */
   content: string;
 }
 
