@@ -72,7 +72,6 @@ export function repairJsonString(input: string): string {
 
   let repaired = trimmed;
 
-  // 1. Handle trailing escape backslash inside an open string (e.g. `"hello\`)
   if (inString) {
     if (escapeNext) {
       repaired = repaired.slice(0, -1);
