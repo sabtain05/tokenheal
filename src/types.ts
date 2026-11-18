@@ -76,20 +76,12 @@ export interface CodeBlockEvent {
   isComplete: boolean;
 }
 
-/**
- * Emitted when the stream finishes (via flush() or end of AsyncIterable).
- */
 export interface DoneEvent {
   type: 'done';
-  /** Final aggregated text */
   text: string;
-  /** Final aggregated thinking log (if any) */
   thinking: string;
 }
 
-/**
- * Configuration options for the TokenHeal stream parser.
- */
 export interface TokenHealOptions {
   thinkingTag?: string;
   toolTag?: string;
