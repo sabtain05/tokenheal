@@ -20,16 +20,10 @@ export interface TextEvent {
   content: string;
 }
 
-/**
- * Internal model reasoning extracted from <thinking>...</thinking> tags.
- */
 export interface ThinkingEvent {
   type: 'thinking';
-  /** The incremental reasoning delta */
   delta: string;
-  /** The full accumulated thinking content so far */
   content: string;
-  /** True once the closing </thinking> tag has been encountered */
   isComplete: boolean;
 }
 
