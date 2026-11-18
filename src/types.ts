@@ -61,18 +61,11 @@ export interface ToolCallEvent<T = Record<string, unknown>> {
   isComplete: boolean;
 }
 
-/**
- * Non-JSON fenced markdown code block (e.g., ```typescript, ```python).
- */
 export interface CodeBlockEvent {
-  type: 'code';
-  /** Language identifier after the opening backticks (e.g., "ts", "python") */
+  type: 'code'
   language: string;
-  /** Incremental code delta */
   delta: string;
-  /** Full accumulated code inside the block */
   code: string;
-  /** True once the closing ``` fence is reached */
   isComplete: boolean;
 }
 
