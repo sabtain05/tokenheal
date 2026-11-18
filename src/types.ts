@@ -54,7 +54,7 @@ export interface TokenHealOptions {
   fallback?: unknown;
 }
 
-export interface HealResult<T unknown> {
+export interface HealResult<T = unknown> {
   value: T;
   repaired: string;
   wasComplete: boolean;
