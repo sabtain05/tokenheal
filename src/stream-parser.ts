@@ -197,7 +197,6 @@ export class StreamParser<T = Record<string, unknown>> {
       }
     }
 
-    // Safe to flush entire buffer as text
     this.emitText(events, this.buffer);
     this.buffer = '';
     return true;
