@@ -154,9 +154,6 @@ function cleanStructuralTail(str: string, stack: ContainerType[]): string {
   return current;
 }
 
-/**
- * Removes a trailing quoted key and any comma preceding it.
- */
 function stripTrailingKey(str: string): string {
   const quoteStart = findOpeningQuoteIndex(str);
   if (quoteStart === -1) return str;
@@ -168,13 +165,9 @@ function stripTrailingKey(str: string): string {
   return beforeKey;
 }
 
-/**
- * Given a string ending with `"`, finds the index of its matching opening `"`.
- */
 function findOpeningQuoteIndex(str: string): number {
   for (let i = str.length - 2; i >= 0; i--) {
     if (str[i] === '"') {
-      // Count consecutive preceding backslashes to check if quote is escaped
       let backslashes = 0;
       let j = i - 1;
       while (j >= 0 && str[j] === '\\') {
@@ -189,10 +182,6 @@ function findOpeningQuoteIndex(str: string): number {
   return -1;
 }
 
-/**
- * Heals and parses a potentially incomplete JSON string on the fly.
- * Returns a structured HealResult with the parsed value, repaired string, and completion status.
- */
 export function healJsonWithMeta<T = Record<string, unknown>>(
   input: string,
   fallback: T | null = null
@@ -202,13 +191,10 @@ export function healJsonWithMeta<T = Record<string, unknown>>(
     return { value: fallback, repaired: '', wasComplete: false };
   }
 
-  // Fast path: already valid complete JSON
   try {
     const parsed = JSON.parse(trimmed) as T;
     return { value: parsed, repaired: trimmed, wasComplete: true };
-  } catch {
-    // Fall through to repair engine
-  }
+  } catch {}
 
   const repaired = repairJsonString(trimmed);
   if (!repaired) {
