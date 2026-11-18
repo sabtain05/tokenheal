@@ -105,11 +105,7 @@ export function repairJsonString(input: string): string {
       repaired = prefix;
     }
   }
-
-  // 3. Clean up dangling structural tails inside objects/arrays
   repaired = cleanStructuralTail(repaired, stack);
-
-  // 4. Close any remaining open containers in reverse (LIFO) order
   for (let i = stack.length - 1; i >= 0; i--) {
     repaired += stack[i] === '{' ? '}' : ']';
   }
