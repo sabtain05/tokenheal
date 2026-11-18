@@ -51,8 +51,9 @@ describe('StreamParser & healStream', () => {
     const jsonEvents = events.filter((e) => e.type === 'json');
     const codeEvents = events.filter((e) => e.type === 'code');
 
-    expect(jsonEvents.length).toBeGreaterThan(1);
-    expect(jsonEvents[0]?.data).toEqual({ name: 'Ada' });
+    expect(jsonEvents.length).toBeGreaterThan(2);
+    expect(jsonEvents[0]?.data).toEqual({});
+    expect(jsonEvents.some((e) => e.data?.name === 'Ada')).toBe(true);
     expect(jsonEvents.at(-1)).toMatchObject({
       type: 'json',
       data: { name: 'Ada', skills: ['math', 'code'] },
