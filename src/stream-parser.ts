@@ -12,11 +12,6 @@ type ParserMode =
   | 'json_fence'
   | 'raw_json';
 
-/**
- * Stateful streaming parser that separates raw LLM token streams into
- * typed events (`text`, `thinking`, `json`, `tool_call`, `code`, `done`)
- * and heals incomplete JSON payloads in real time.
- */
 export class StreamParser<T = Record<string, unknown>> {
   private readonly thinkingOpen: string;
   private readonly thinkingClose: string;
@@ -25,8 +20,6 @@ export class StreamParser<T = Record<string, unknown>> {
 
   private mode: ParserMode = 'text';
   private buffer = '';
-
-  // Accumulated outputs
   private fullText = '';
   private fullThinking = '';
   private blockBuffer = '';
