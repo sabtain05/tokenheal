@@ -64,7 +64,6 @@ export function repairJsonString(input: string): string {
       continue;
     }
 
-    // Part of a literal (true, false, null) or number
     if (tokenStart === -1) {
       tokenStart = i;
     }
