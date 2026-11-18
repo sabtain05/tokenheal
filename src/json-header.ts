@@ -117,34 +117,26 @@ export function repairJsonString(input: string): string {
   return repaired;
 }
 
-/**
- * Strips incomplete key-value pairs, dangling colons, or trailing commas
- * right before closing open brackets/braces.
- */
 function cleanStructuralTail(str: string, stack: ContainerType[]): string {
   let current = str.trimEnd();
   if (stack.length === 0) return current;
 
   const topContainer = stack[stack.length - 1];
 
-  // Remove trailing comma (e.g., `{"a": 1,` or `[1, 2,`)
   if (current.endsWith(',')) {
     return current.slice(0, -1).trimEnd();
   }
 
-  // Remove dangling colon in an object (e.g., `{"a":` -> `{`)
   if (topContainer === '{' && current.endsWith(':')) {
     const withoutColon = current.slice(0, -1).trimEnd();
     return stripTrailingKey(withoutColon);
   }
 
-  // Check if an object ends with a dangling key without a colon (e.g., `{"a": 1, "b"` -> `{"a": 1`)
   if (topContainer === '{' && current.endsWith('"')) {
     const keyStartIndex = findOpeningQuoteIndex(current);
     if (keyStartIndex > 0) {
       const beforeKey = current.slice(0, keyStartIndex).trimEnd();
       const lastCharBeforeKey = beforeKey[beforeKey.length - 1];
-      // If preceded by `{` or `,`, this string is an object key with no `: value` yet
       if (lastCharBeforeKey === '{' || lastCharBeforeKey === ',') {
         return stripTrailingKey(current);
       }
