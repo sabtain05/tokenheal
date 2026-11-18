@@ -51,13 +51,9 @@ export interface JsonEvent<T = Record<string, unknown>> {
  */
 export interface ToolCallEvent<T = Record<string, unknown>> {
   type: 'tool_call';
-  /** Tool/function name if detected */
   name?: string;
-  /** Live-healed arguments object */
   arguments: T;
-  /** Raw accumulated tool payload string */
   raw: string;
-  /** True once the tool call block is completely closed */
   isComplete: boolean;
 }
 
