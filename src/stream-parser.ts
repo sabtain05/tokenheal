@@ -1,4 +1,4 @@
-import { healJsonWithMeta } from './json-healer.js';
+import { healJsonWithMeta } from './json-healer';
 import type {
   TokenHealEvent,
   TokenHealOptions,

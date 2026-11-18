@@ -1,4 +1,4 @@
-import type { HealResult } from './types.js';
+import type { HealResult } from './types';
 
 type ContainerType = '{' | '[';
 
