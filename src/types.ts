@@ -111,9 +111,6 @@ export interface TokenHealOptions {
   fallback?: unknown;
 }
 
-/**
- * Result returned by the standalone healJson() helper.
- */
 export interface HealResult<T unknown> {
   value: T;
   repaired: string;
