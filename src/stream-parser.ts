@@ -157,10 +157,8 @@ export class StreamParser<T = Record<string, unknown>> {
       this.buffer = this.buffer.slice(earliestIdx + matchedMarker.tag.length);
 
       if (matchedMarker.nextMode === 'fence') {
-        // Wait for newline after ``` to read the language identifier (e.g., ```json or ```ts)
         const newlineIdx = this.buffer.indexOf('\n');
         if (newlineIdx === -1 && !isFinal) {
-          // Put ``` back and wait for the rest of the header line
           this.buffer = '```' + this.buffer;
           return false;
         }
@@ -180,7 +178,6 @@ export class StreamParser<T = Record<string, unknown>> {
       return true;
     }
 
-    // No full marker found; check if the tail could be a partial prefix of a marker
     if (!isFinal) {
       const holdBack = this.computePartialMarkerHoldback(
         this.buffer,
