@@ -54,10 +54,6 @@ export class StreamParser<T = Record<string, unknown>> {
     return this.drain(false);
   }
 
-  /**
-   * Signal the end of the stream, flushing any remaining buffered characters
-   * and emitting a final `done` event.
-   */
   public flush(): TokenHealEvent<T>[] {
     const events = this.drain(true);
     events.push({
