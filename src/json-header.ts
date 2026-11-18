@@ -2,10 +2,6 @@ import type { HealResult } from './types.js';
 
 type ContainerType = '{' | '[';
 
-/**
- * Repairs an incomplete or streaming JSON string so it can be safely parsed
- * via JSON.parse() on every incoming token.
- */
 export function repairJsonString(input: string): string {
   const trimmed = input.trimStart();
   if (!trimmed) return '';
@@ -14,7 +10,6 @@ export function repairJsonString(input: string): string {
   let inString = false;
   let escapeNext = false;
 
-  // Track the start index of the current token outside strings
   let tokenStart = -1;
 
   for (let i = 0; i < trimmed.length; i++) {
@@ -31,7 +26,6 @@ export function repairJsonString(input: string): string {
       continue;
     }
 
-    // Outside of string
     if (ch === '"') {
       inString = true;
       tokenStart = -1;
