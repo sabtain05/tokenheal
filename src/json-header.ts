@@ -79,7 +79,6 @@ export function repairJsonString(input: string): string {
     }
     repaired += '"';
   } else if (tokenStart !== -1) {
-    // 2. Complete or strip partial unquoted literals/numbers at the tail
     const partialToken = repaired.slice(tokenStart);
     const prefix = repaired.slice(0, tokenStart);
 
@@ -90,18 +89,13 @@ export function repairJsonString(input: string): string {
     } else if ('null'.startsWith(partialToken)) {
       repaired = prefix + 'null';
     } else if (/^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(partialToken)) {
-      // Already a complete valid JSON number
     } else if (/^-?\d+\.$/.test(partialToken)) {
-      // Trailing decimal point: "12." -> "12.0"
       repaired = prefix + partialToken + '0';
     } else if (/^-?\d+(\.\d+)?[eE][+-]?$/.test(partialToken)) {
-      // Trailing exponent: "1e" or "1e+" -> "1e0"
       repaired = prefix + partialToken + '0';
     } else if (partialToken === '-') {
-      // Lone minus sign -> "0"
       repaired = prefix + '0';
     } else {
-      // Unrecognized partial token -> strip it
       repaired = prefix;
     }
   }
