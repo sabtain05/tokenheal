@@ -33,22 +33,13 @@ export interface ThinkingEvent {
   isComplete: boolean;
 }
 
-/**
- * Live-healed structured JSON payload (from raw JSON streams or ```json blocks).
- */
 export interface JsonEvent<T = Record<string, unknown>> {
   type: 'json';
-  /** The parsed, valid JS object/array healed on the fly */
   data: T;
-  /** The raw (potentially incomplete) JSON string accumulated so far */
   raw: string;
-  /** True if the JSON stream was naturally complete without needing auto-closure */
   isComplete: boolean;
 }
 
-/**
- * Tool / function call payload extracted from <tool_call> tags or tool JSON blocks.
- */
 export interface ToolCallEvent<T = Record<string, unknown>> {
   type: 'tool_call';
   name?: string;
