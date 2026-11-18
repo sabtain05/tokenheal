@@ -115,10 +115,7 @@ export interface TokenHealOptions {
  * Result returned by the standalone healJson() helper.
  */
 export interface HealResult<T unknown> {
-  /** The parsed JavaScript value */
   value: T;
-  /** The repaired JSON string */
   repaired: string;
-  /** Whether the input was already valid JSON without needing repairs */
   wasComplete: boolean;
 }
