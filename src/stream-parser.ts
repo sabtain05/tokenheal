@@ -290,8 +290,6 @@ export class StreamParser<T = Record<string, unknown>> {
       const delta = this.buffer.slice(0, closeIdx);
       this.blockBuffer += delta;
       this.buffer = this.buffer.slice(closeIdx + 3);
-
-      // Consume optional trailing newline right after closing ```
       if (this.buffer.startsWith('\r\n')) {
         this.buffer = this.buffer.slice(2);
       } else if (this.buffer.startsWith('\n')) {
@@ -436,10 +434,6 @@ export class StreamParser<T = Record<string, unknown>> {
     }
   }
 
-  /**
-   * Computes how many trailing characters in `text` match a prefix of any marker
-   * so we don't accidentally emit half of `<thinking>` or ```` ``` ```` as plain text.
-   */
   private computePartialMarkerHoldback(text: string, markers: string[]): number {
     let maxHold = 0;
     for (const marker of markers) {
