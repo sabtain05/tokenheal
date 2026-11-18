@@ -91,23 +91,8 @@ export interface DoneEvent {
  * Configuration options for the TokenHeal stream parser.
  */
 export interface TokenHealOptions {
-  /**
-   * Custom XML-style tag name used for reasoning blocks.
-   * @default 'thinking'
-   */
   thinkingTag?: string;
-
-  /**
-   * Custom XML-style tag name used for tool calls.
-   * @default 'tool_call'
-   */
   toolTag?: string;
-
-  /**
-   * Fallback value returned by healJson() if the input cannot be salvaged yet
-   * (e.g., an empty string or lone opening quote before any key/value).
-   * @default null
-   */
   fallback?: unknown;
 }
 
