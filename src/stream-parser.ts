@@ -68,9 +68,6 @@ export class StreamParser<T = Record<string, unknown>> {
     return events;
   }
 
-  /**
-   * Reset internal state so the parser instance can be reused for a new stream.
-   */
   public reset(): void {
     this.mode = 'text';
     this.buffer = '';
@@ -114,7 +111,6 @@ export class StreamParser<T = Record<string, unknown>> {
   }
 
   private processTextMode(events: TokenHealEvent<T>[], isFinal: boolean): boolean {
-    // Detect raw JSON stream at the very beginning of output (before any text)
     if (this.fullText.length === 0 && this.fullThinking.length === 0) {
       const trimmedLead = this.buffer.trimStart();
       if (trimmedLead.startsWith('{') || trimmedLead.startsWith('[')) {
