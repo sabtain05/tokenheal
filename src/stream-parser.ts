@@ -45,9 +45,6 @@ export class StreamParser<T = Record<string, unknown>> {
     this.toolClose = `</${toolTag}>`;
   }
 
-  /**
-   * Push a new raw string chunk from the AI stream and receive zero or more typed events.
-   */
   public push(chunk: string): TokenHealEvent<T>[] {
     if (!chunk) return [];
     this.buffer += chunk;
