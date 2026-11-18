@@ -21,34 +21,16 @@ export type {
   ToolCallEvent,
 } from './types';
 
-/**
- * Supported stream inputs: any AsyncIterable of strings (or Uint8Array chunks)
- * or a standard Web ReadableStream.
- */
 export type TokenStreamInput =
   | AsyncIterable<string | Uint8Array>
   | ReadableStream<string | Uint8Array>;
 
-/**
- * Creates a stateful StreamParser instance for manual chunk pushing.
- */
 export function createStreamParser<T = Record<string, unknown>>(
   options?: TokenHealOptions
 ): StreamParser<T> {
   return new StreamParser<T>(options);
 }
 
-/**
- * Consumes an AI text/byte stream and yields clean, typed events
- * (`text`, `thinking`, `json`, `tool_call`, `code`, `done`) in real time.
- *
- * @example
- * ```ts
- * for await (const event of healStream(aiStream)) {
- *   if (event.type === 'json') renderUI(event.data);
- * }
- * ```
- */
 export async function* healStream<T = Record<string, unknown>>(
   source: TokenStreamInput,
   options?: TokenHealOptions
@@ -68,7 +50,6 @@ export async function* healStream<T = Record<string, unknown>>(
     }
   }
 
-  // Flush any remaining multi-byte UTF-8 sequence in the decoder
   const trailing = decoder.decode();
   if (trailing) {
     for (const event of parser.push(trailing)) {
@@ -81,9 +62,6 @@ export async function* healStream<T = Record<string, unknown>>(
   }
 }
 
-/**
- * Normalizes a Web ReadableStream or AsyncIterable into a unified AsyncIterable.
- */
 async function* toAsyncIterable(
   source: TokenStreamInput
 ): AsyncIterable<string | Uint8Array> {
