@@ -129,7 +129,6 @@ export class StreamParser<T = Record<string, unknown>> {
       }
     }
 
-    // Find the earliest structural marker in the buffer
     const markers = [
       { tag: this.thinkingOpen, nextMode: 'thinking' as const },
       { tag: this.toolOpen, nextMode: 'tool_call' as const },
@@ -148,7 +147,6 @@ export class StreamParser<T = Record<string, unknown>> {
     }
 
     if (matchedMarker && earliestIdx !== -1) {
-      // Emit any plain text before the marker
       if (earliestIdx > 0) {
         const textDelta = this.buffer.slice(0, earliestIdx);
         this.emitText(events, textDelta);
